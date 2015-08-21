@@ -5,6 +5,18 @@
 # Internet Check
 # Checks if machine has internet access via pinging google.com
 
+# Declare Colour Variables
+b='\033[1m'
+u='\033[4m'
+r='\E[31m'
+g='\E[32m'
+y='\E[33m'
+m='\E[35m'
+c='\E[36m'
+w='\E[37m'
+endc='\E[0m'
+enda='\033[0m'
+
 function checkinternet() {
   ping -c 1 google.com > /dev/null
   if [[ "$?" != 0 ]]
