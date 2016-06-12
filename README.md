@@ -3,8 +3,8 @@
 Several scripts for connection to openvpn configs.  
 Requirements
 ---------
-     1. geoip,
-     2. openvpn, 
+     1. geoip
+     2. openvpn 
      3. internet
 
 Mainly for Anonine VPN, in order to setup you need to make a directory: /usr/vpnconf or additionally edit the script to add to it.
