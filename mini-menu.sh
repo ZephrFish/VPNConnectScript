@@ -1,6 +1,6 @@
 #!/bin/bash
 # Updated VPN Script
-# ZephrFish
+# ZephrFish 2022
 
 echo "######################################################"
 echo "##               VPN Connect Script                 ##"
