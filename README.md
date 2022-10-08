@@ -1,4 +1,4 @@
-#VPN Connection Script for OpenVPN
+# VPN Connection Script for OpenVPN
 
 Several scripts for connection to openvpn configs.  
 Requirements
