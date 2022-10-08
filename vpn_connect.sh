@@ -1,6 +1,6 @@
 # !/bin/bash
 # ZephrFish Anonine VPN Connect Script
-#
+# 2022
 #
 # Internet Check
 # Checks if machine has internet access via pinging google.com
