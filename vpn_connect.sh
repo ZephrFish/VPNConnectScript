@@ -1,11 +1,11 @@
-# !/bin/bash
+#!/bin/bash
 # ZephrFish Anonine VPN Connect Script
 # 2022
-#
-# Internet Check
-# Checks if machine has internet access via pinging google.com
+# 
+# VPN connection script with menu selection for multiple servers
+# Performs internet connectivity check and root privilege validation
 
-# Declare Colour Variables
+# Color variable declarations for terminal output formatting
 b='\033[1m'
 u='\033[4m'
 r='\E[31m'
@@ -17,84 +17,162 @@ w='\E[37m'
 endc='\E[0m'
 enda='\033[0m'
 
+# Internet connectivity check function
+# Tests connection to google.com with timeout
 function checkinternet() {
-  ping -c 1 google.com > /dev/null
-  if [[ "$?" != 0 ]]
-  then
-    echo -e " Checking For Internet: ${r}FAILED${endc}
- ${y}You're Using a Fucking VPN Script and You have no Internet, That is enough internet for you today${endc}"
-    echo -e " ${b}Rerun When Not So Retarded${enda} I am away"
+  if ! ping -c 1 -W 5 google.com > /dev/null 2>&1; then
+    echo -e " Checking For Internet: ${r}FAILED${endc}"
+    echo -e " ${y}No internet connection detected. Please check your network.${endc}"
+    echo -e " ${b}Please ensure internet connectivity before running VPN script.${enda}"
     echo && sleep 2
-    kexit
+    exit 1
   else
     echo -e " Checking For Internet: ${g}PASSED${endc}"
   fi
 }
 
 checkinternet
-# Root Check
-# Checks if script is being run as sudo or root based upon username; will change in future to UID based
+# Root privilege validation function
+# Ensures script is run with appropriate permissions
 function rootcheck() {
-if [[ $USER != "root" ]] ; then
-                echo "Please Note: This script must be run as root!"
-                exit 1
-        fi
-echo -e " Checking For Root or Sudo: ${g}PASSED${endc}"
+  if [[ $EUID -ne 0 ]]; then
+    echo -e " ${r}Error: This script must be run as root or with sudo${endc}"
+    echo -e " ${y}Usage: sudo $0${endc}"
+    exit 1
+  fi
+  echo -e " Checking For Root or Sudo: ${g}PASSED${endc}"
 }
 
 
 
-# VPN Locations Menu
-# Carry out rootcheck first before running
+# VPN server selection menu
+# Displays available servers and handles user selection
 rootcheck
-# Make sure to change the path to configs and also within configs add your own auth details to allow for background running
+# Configuration files should be located in /usr/vpnconf/ with proper authentication credentials
 echo "######################################################"
 echo "##               VPN Connect Script                 ##"
 echo "######################################################"
 echo ""
 echo ""
-echo "Please Select from the Following optinos what server you want to connect to"
+echo "Please select from the following options which server you want to connect to:"
 PS3='What server would you like to connect to?: '
 options=("Amsterdam" "Atlanta" "Coventry" "Miami" "Moscow" "Oslo" "Paris" "Stockholm" "Sydney" "Toronto" "Zurich" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
         "Amsterdam")
-             openvpn --config /usr/vpnconf/Amsterdam.ovpn&
+            if [[ -f "/usr/vpnconf/Amsterdam.ovpn" ]]; then
+              echo -e " ${g}Connecting to Amsterdam...${endc}"
+              openvpn --config /usr/vpnconf/Amsterdam.ovpn &
+              sleep 2
+              break
+            else
+              echo -e " ${r}Error: Configuration file not found${endc}"
+            fi
             ;;
         "Atlanta")
-             openvpn --config /usr/vpnconf/Atlanta.ovpn&
+            if [[ -f "/usr/vpnconf/Atlanta.ovpn" ]]; then
+              echo -e " ${g}Connecting to Atlanta...${endc}"
+              openvpn --config /usr/vpnconf/Atlanta.ovpn &
+              sleep 2
+              break
+            else
+              echo -e " ${r}Error: Configuration file not found${endc}"
+            fi
             ;;
         "Coventry")
-             openvpn --config /usr/vpnconf/Coventry.ovpn&
+            if [[ -f "/usr/vpnconf/Coventry.ovpn" ]]; then
+              echo -e " ${g}Connecting to Coventry...${endc}"
+              openvpn --config /usr/vpnconf/Coventry.ovpn &
+              sleep 2
+              break
+            else
+              echo -e " ${r}Error: Configuration file not found${endc}"
+            fi
             ;;
-	"Miami")
-             openvpn --config /usr/vpnconf/Miami.ovpn&
-	    ;;
-	"Moscow")
-	     openvpn --config /usr/vpnconf/Moscow.ovpn&
-	    ;;
-	"Oslo")
-	     openvpn --config /usr/vpnconf/Oslo.ovpn&
-	    ;;
-	"Paris")
-	     openvpn --config /usr/vpnconf/Paris.ovpn&
-	    ;;
-	"Stockholm")
-	     openvpn --config /usr/vpnconf/Stockholm.ovpn&
-	    ;;
-	"Sydney")
-	   openvpn --config /usr/vpnconf/Sydney.ovpn&
-	  ;;
-	"Toronto")
-	   openvpn --config /usr/vpnconf/Toronto.ovpn&
-	  ;;
-	"Zurich")
-	   openvpn --config /usr/vpnconf/Zurich.ovpn&
-          ;;
+        "Miami")
+            if [[ -f "/usr/vpnconf/Miami.ovpn" ]]; then
+              echo -e " ${g}Connecting to Miami...${endc}"
+              openvpn --config /usr/vpnconf/Miami.ovpn &
+              sleep 2
+              break
+            else
+              echo -e " ${r}Error: Configuration file not found${endc}"
+            fi
+            ;;
+        "Moscow")
+            if [[ -f "/usr/vpnconf/Moscow.ovpn" ]]; then
+              echo -e " ${g}Connecting to Moscow...${endc}"
+              openvpn --config /usr/vpnconf/Moscow.ovpn &
+              sleep 2
+              break
+            else
+              echo -e " ${r}Error: Configuration file not found${endc}"
+            fi
+            ;;
+        "Oslo")
+            if [[ -f "/usr/vpnconf/Oslo.ovpn" ]]; then
+              echo -e " ${g}Connecting to Oslo...${endc}"
+              openvpn --config /usr/vpnconf/Oslo.ovpn &
+              sleep 2
+              break
+            else
+              echo -e " ${r}Error: Configuration file not found${endc}"
+            fi
+            ;;
+        "Paris")
+            if [[ -f "/usr/vpnconf/Paris.ovpn" ]]; then
+              echo -e " ${g}Connecting to Paris...${endc}"
+              openvpn --config /usr/vpnconf/Paris.ovpn &
+              sleep 2
+              break
+            else
+              echo -e " ${r}Error: Configuration file not found${endc}"
+            fi
+            ;;
+        "Stockholm")
+            if [[ -f "/usr/vpnconf/Stockholm.ovpn" ]]; then
+              echo -e " ${g}Connecting to Stockholm...${endc}"
+              openvpn --config /usr/vpnconf/Stockholm.ovpn &
+              sleep 2
+              break
+            else
+              echo -e " ${r}Error: Configuration file not found${endc}"
+            fi
+            ;;
+        "Sydney")
+            if [[ -f "/usr/vpnconf/Sydney.ovpn" ]]; then
+              echo -e " ${g}Connecting to Sydney...${endc}"
+              openvpn --config /usr/vpnconf/Sydney.ovpn &
+              sleep 2
+              break
+            else
+              echo -e " ${r}Error: Configuration file not found${endc}"
+            fi
+            ;;
+        "Toronto")
+            if [[ -f "/usr/vpnconf/Toronto.ovpn" ]]; then
+              echo -e " ${g}Connecting to Toronto...${endc}"
+              openvpn --config /usr/vpnconf/Toronto.ovpn &
+              sleep 2
+              break
+            else
+              echo -e " ${r}Error: Configuration file not found${endc}"
+            fi
+            ;;
+        "Zurich")
+            if [[ -f "/usr/vpnconf/Zurich.ovpn" ]]; then
+              echo -e " ${g}Connecting to Zurich...${endc}"
+              openvpn --config /usr/vpnconf/Zurich.ovpn &
+              sleep 2
+              break
+            else
+              echo -e " ${r}Error: Configuration file not found${endc}"
+            fi
+            ;;
         "Quit")
             break
             ;;
-        *) echo "invalid option, please try again";;
+        *) echo -e " ${r}Invalid option. Please try again.${endc}";;
     esac
 done

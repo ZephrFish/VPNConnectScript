@@ -7,6 +7,6 @@ Requirements
      2. openvpn 
      3. internet
 
-Mainly for Anonine VPN, in order to setup you need to make a directory: /usr/vpnconf or additionally edit the script to add to it.
+Mainly for OpenVPN setups, in order to setup you need to make a directory: /usr/vpnconf or additionally edit the script to add to it.
 
 You will also need to have a VPN otherwise this is pointless!
